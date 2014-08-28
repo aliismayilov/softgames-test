@@ -1,12 +1,13 @@
 .row
   .col-md-4
-    .panel.panel-default
+    .panel.panel-default ng-app="primeApp"
       .panel-heading
         h3.panel-title Task #1
-      .panel-body
+      .panel-body ng-controller="PrimeController"
         .form-group
           label for="number" Write the number
-          input.form-control#number type="number" value="13195"
+          input.form-control#number type="number" ng-model="number"
         .form-group
           label Prime numbers are:
-          p 5, 7, 13, 29
+          p
+           | {{ result }}
