@@ -49,7 +49,9 @@ angular.module('primeApp', [])
           else {
             if (number % currentPrime == 0) {
               $scope.result.push(currentPrime);
-              number /= currentPrime;
+              while(number % currentPrime == 0) {
+                number /= currentPrime;
+              }
             }
           }
         }
