@@ -8,6 +8,6 @@
           label for="number" Write the number
           input.form-control#number type="number" ng-model="number"
         .form-group
-          label Prime numbers are:
+          label Prime factors are:
           p
-           | {{ result }}
+           | {{ result.join(', ') }}
