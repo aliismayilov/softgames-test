@@ -10,4 +10,4 @@
         .form-group
           label Prime factors are:
           p
-           | {{ result.join(', ') }}
+           | {{ message || result.join(', ') }}

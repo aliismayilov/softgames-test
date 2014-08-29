@@ -3,7 +3,6 @@ angular.module('primeApp', [])
     var primeNumbers;
     var _initialize = function() {
       $scope.number = 13195;
-      $scope.result = [];
       primeNumbers = [2, 3];
     };
 
@@ -38,9 +37,10 @@ angular.module('primeApp', [])
     };
 
     $scope.$watch('number', function(userNumber) {
-      if (Number.isInteger(userNumber)) {
+      if (Number.isInteger(userNumber) && userNumber.toString().length < 12 && userNumber > 1) {
         var number = userNumber;
         $scope.result = [];
+        $scope.message = null;
         for (var currentPrime = primeNumbers[0]; currentPrime <= number; currentPrime = nextPrimeAfter(currentPrime)) {
           if (isPrime(number)) {
             $scope.result.push(number);
@@ -54,8 +54,21 @@ angular.module('primeApp', [])
           }
         }
       }
+
+      else if (!Number.isInteger(userNumber)) {
+        $scope.message = 'That\'s not an integer...';
+      }
+      else if (userNumber.toString().length > 11) {
+        $scope.message = 'JavaScript is too slow for that :-(';
+      }
+      else if (Number.isInteger(userNumber) && userNumber < 1) {
+        $scope.message = 'It wasn\'t in the spec.';
+      }
+      else if (userNumber == 1) {
+        $scope.message = '1 prime to rule them all...';
+      }
       else {
-        $scope.result = [];
+        $scope.message = 'That\'s because of your old software...';
       }
     });
 
