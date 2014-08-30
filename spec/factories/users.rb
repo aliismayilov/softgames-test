@@ -3,7 +3,7 @@
 FactoryGirl.define do
   factory :user do
     provider "MyString"
-    sequence(:uid) { |n| n }
+    sequence(:uid) { |n| n.to_s }
     name "MyString"
     sequence(:email) { |n| "user-#{n}@email.com" }
     image "MyString"

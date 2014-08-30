@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   root 'home#index'
   get 'picasa', to: 'home#picasa'
+  resource :user, only: :show, defaults: { format: 'json' }
 
   get '/auth/failure'            => 'sessions#failure',
     as: :auth_failure
