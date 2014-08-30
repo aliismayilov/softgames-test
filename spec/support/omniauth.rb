@@ -1,7 +1,23 @@
+module OmniauthLoginTestHelper
+  def current_user(*traits)
+    @current_user ||= create(:user, *traits)
+  end
+
+  def login!(*traits)
+    session[:user_id] = current_user(*traits).id
+  end
+
+  def set_env_with_omniauth_info!
+    request.env['omniauth.auth'] = OmniAuth.config.mock_auth[:google_oauth2]
+  end
+end
+
 RSpec.configure do |config|
+  config.include OmniauthLoginTestHelper, :type => :controller
+  config.include OmniauthLoginTestHelper, :type => :helper
   OmniAuth.config.test_mode = true
 
-  OmniAuth.config.mock_auth[:facebook] = OmniAuth::AuthHash.new({
+  OmniAuth.config.mock_auth[:google_oauth2] = OmniAuth::AuthHash.new({
     :provider => "google_oauth2",
     :uid => "123456789",
     :info => {
