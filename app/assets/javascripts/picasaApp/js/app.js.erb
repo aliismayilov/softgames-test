@@ -7,9 +7,18 @@ angular.module('picasaApp', [
   'picasaApp.controllers'
 ]).
 config(['$routeProvider', '$httpProvider', function($routeProvider, $httpProvider) {
-  $routeProvider.when('/albums', {templateUrl: '<%= asset_path("picasaApp/partials/albums.html") %>', controller: 'AlbumsCtrl'});
-  $routeProvider.when('/view2', {templateUrl: '<%= asset_path("picasaApp/partials/partial2.html") %>', controller: 'MyCtrl2'});
-  $routeProvider.otherwise({redirectTo: '/albums'});
+  $routeProvider.
+    when('/albums', {
+      templateUrl: '<%= asset_path("picasaApp/partials/album-list.html") %>',
+      controller: 'AlbumListCtrl'
+    }).
+    when('/albums/:albumId', {
+      templateUrl: '<%= asset_path("picasaApp/partials/album-detail.html") %>',
+      controller: 'AlbumDetailCtrl'
+    }).
+    otherwise({
+      redirectTo: '/albums'
+    });
 
   $httpProvider.defaults.useXDomain = true;
 }]).

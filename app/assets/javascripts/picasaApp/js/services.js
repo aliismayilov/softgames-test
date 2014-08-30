@@ -18,5 +18,14 @@ angular.module('picasaApp.services', []).
       });
     };
 
+    factory.showAlbum = function(albumId) {
+      return $http.get('https://picasaweb.google.com/data/feed/api/user/default/albumid/' + albumId, {
+        params: {
+          access_token: $rootScope.access_token,
+          alt: 'json'
+        }
+      });
+    };
+
     return factory;
   }]);
