@@ -9,4 +9,11 @@ RSpec.describe HomeController, :type => :controller do
     end
   end
 
+  describe "GET picasa" do
+    it "returns http success" do
+      get :picasa
+      expect(response).to be_success
+    end
+  end
+
 end
