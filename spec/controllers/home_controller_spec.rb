@@ -10,9 +10,19 @@ RSpec.describe HomeController, :type => :controller do
   end
 
   describe "GET picasa" do
-    it "returns http success" do
-      get :picasa
-      expect(response).to be_success
+    let(:action) { get :picasa }
+
+    it_behaves_like 'action that requires authentication' do
+      before { action }
+    end
+
+    context 'logged in' do
+      before { login! }
+
+      it "returns http success" do
+        action
+        expect(response).to be_success
+      end
     end
   end
 
