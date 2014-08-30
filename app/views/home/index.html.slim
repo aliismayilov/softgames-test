@@ -11,3 +11,9 @@
           label Prime factors are:
           p
            | {{ message || result.join(', ') }}
+  .col-md-4
+    .panel.panel-default
+      .panel-heading
+        h3.panel-title Task #2
+      .panel-body
+        = link_to 'Sign in with Google', login_path(provider: 'google_oauth2'), class: 'btn btn-lg btn-danger', role: 'button'

@@ -7,7 +7,7 @@ class SessionsController < ApplicationController
 
     session[:user_id] = user.id
 
-    redirect_to request.env['omniauth.origin'] || picasa_path
+    redirect_to picasa_path
   end
 
   def failure
