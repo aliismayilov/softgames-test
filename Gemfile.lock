@@ -108,6 +108,8 @@ GEM
       railties (= 4.1.5)
       sprockets-rails (~> 2.0)
     rails-assets-angular (1.2.23)
+    rails-assets-angular-route (1.2.23)
+      rails-assets-angular (= 1.2.23)
     railties (4.1.5)
       actionpack (= 4.1.5)
       activesupport (= 4.1.5)
@@ -182,6 +184,7 @@ DEPENDENCIES
   pg
   rails (= 4.1.5)
   rails-assets-angular (~> 1.2.23)
+  rails-assets-angular-route (~> 1.2.9)
   rspec-rails (~> 3.0.0)
   sass-rails (~> 4.0.3)
   slim-rails

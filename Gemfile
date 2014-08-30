@@ -16,6 +16,7 @@ gem 'omniauth-google-oauth2'
 
 # rails-assets
 gem 'rails-assets-angular', '~> 1.2.23'
+gem 'rails-assets-angular-route', '~> 1.2.9'
 
 group :development, :test do
   gem 'rspec-rails', '~> 3.0.0'
