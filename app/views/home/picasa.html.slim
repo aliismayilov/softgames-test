@@ -1,11 +1,6 @@
 div ng-app="picasaApp"
-  .pull-right
-    = image_tag current_user.image, class: 'img-thumbnail'
-    = link_to 'Sign out', logout_path(provider: 'google_oauth2'), class: 'btn btn-danger', role: 'button'
   .row
-    ul.menu
-      li
-        a href="#/view1" view1
-      li
-        a href="#/view2" view2
-    div(ng-view)
+    .pull-right
+      = image_tag current_user.image, class: 'img-thumbnail'
+      = link_to 'Sign out', logout_path(provider: 'google_oauth2'), class: 'btn btn-danger', role: 'button'
+  .row(ng-view)

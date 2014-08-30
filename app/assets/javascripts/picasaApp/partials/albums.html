@@ -1,1 +1,10 @@
-<p>This is the partial for view 1.</p>
+<div class="row">
+  <div class="col-sm-4 col-md-3" ng-repeat="album in albums">
+    <div class="thumbnail">
+      <img ng-src="{{ album.media$group.media$thumbnail[0].url }}">
+      <div class="caption">
+        <h4>{{ album.title.$t }}</h4>
+      </div>
+    </div>
+  </div>
+</div>

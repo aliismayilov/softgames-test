@@ -6,8 +6,15 @@ angular.module('picasaApp', [
   'picasaApp.services',
   'picasaApp.controllers'
 ]).
-config(['$routeProvider', function($routeProvider) {
+config(['$routeProvider', '$httpProvider', function($routeProvider, $httpProvider) {
   $routeProvider.when('/albums', {templateUrl: '<%= asset_path("picasaApp/partials/albums.html") %>', controller: 'AlbumsCtrl'});
   $routeProvider.when('/view2', {templateUrl: '<%= asset_path("picasaApp/partials/partial2.html") %>', controller: 'MyCtrl2'});
   $routeProvider.otherwise({redirectTo: '/albums'});
+
+  $httpProvider.defaults.useXDomain = true;
+}]).
+run(['$rootScope', '$http', function($rootScope, $http){
+  $http.get('/user').success(function(user) {
+    $rootScope.access_token = user.token;
+  });
 }]);
