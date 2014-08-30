@@ -23,4 +23,5 @@ group :development, :test do
   gem 'factory_girl_rails'
   gem 'spring'
   gem 'dotenv-rails'
+  gem 'quiet_assets'
 end
