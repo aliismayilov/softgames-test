@@ -40,6 +40,7 @@ RSpec.describe User, :type => :model do
         it { expect(user.email).to eql 'john@company_name.com' }
         it { expect(user.image).to eql 'https://lh3.googleusercontent.com/url/photo.jpg' }
         it { expect(user.token).to eql 'token' }
+        it { expect(user.token_expires_at).to eql Time.at(1354920555) }
       end
     end
 
@@ -65,6 +66,7 @@ RSpec.describe User, :type => :model do
         it { expect(existing_user.email).to eql 'john@company_name.com' }
         it { expect(existing_user.image).to eql 'https://lh3.googleusercontent.com/url/photo.jpg' }
         it { expect(existing_user.token).to eql 'token' }
+        it { expect(existing_user.token_expires_at).to eql Time.at(1354920555) }
       end
     end
   end

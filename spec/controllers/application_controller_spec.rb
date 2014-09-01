@@ -41,7 +41,6 @@ describe ApplicationController do
     context 'user is signed in' do
       before do
         session[:user_id] = user.id
-        session[:expires_at] = 1.hour.from_now.to_i
       end
 
       it 'ignores redirection and proceeds' do
@@ -70,7 +69,7 @@ describe ApplicationController do
     context 'omniauth token is expired' do
       before do
         session[:user_id] = user.id
-        session[:expires_at] = 1.hour.ago.to_i
+        user.update(token_expires_at: 1.hour.ago)
       end
 
       it 'redirects to login' do

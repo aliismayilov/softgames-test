@@ -23,7 +23,7 @@ class ApplicationController < ActionController::Base
     end
 
     def token_is_not_expired?
-      Time.now < Time.at(session[:expires_at]) if session[:expires_at]
+      Time.now < current_user.token_expires_at
     end
 
     def authenticate!

@@ -8,5 +8,6 @@ FactoryGirl.define do
     sequence(:email) { |n| "user-#{n}@email.com" }
     image "MyString"
     token "MyString"
+    token_expires_at 1.hour.from_now
   end
 end
