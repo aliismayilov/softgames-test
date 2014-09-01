@@ -13,9 +13,9 @@ RSpec.describe Api::UsersController, :type => :controller do
     context 'logged in' do
       before { login! }
 
-      it "returns http success" do
+      it "returns only some fields" do
         action
-        expect(response.body).to eql current_user.to_json
+        expect(JSON.parse(response.body).keys).to match_array %w(id app_token email image name provider token_expires_at uid created_at updated_at)
       end
     end
   end
