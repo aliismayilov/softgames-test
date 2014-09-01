@@ -4,10 +4,20 @@
 
 angular.module('picasaApp.controllers', [])
   .controller('AlbumListCtrl',
-  ['$scope', 'picasaFactory', function($scope, picasaFactory) {
+  ['$scope', 'albumFactory', function($scope, albumFactory) {
     var _initialize = function() {
-      picasaFactory.listAlbums().success(function(data) {
-        $scope.albums = data.feed.entry;
+      albumFactory.query().$promise.then(function(data) {
+        $scope.albums = _parseAlbums(data.feed.entry);
+      });
+    };
+
+    var _parseAlbums = function(entries) {
+      return entries.map(function(entry) {
+        return {
+          thumbnail: entry.media$group.media$thumbnail[0].url,
+          id: entry.gphoto$id.$t,
+          title: entry.title.$t
+        };
       });
     };
 

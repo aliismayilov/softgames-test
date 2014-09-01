@@ -12,7 +12,6 @@ angular.module('picasaApp.services', []).
     factory.listAlbums = function() {
       return $http.get('https://picasaweb.google.com/data/feed/api/user/default', {
         params: {
-          access_token: $rootScope.access_token,
           alt: 'json'
         }
       });
@@ -21,7 +20,6 @@ angular.module('picasaApp.services', []).
     factory.showAlbum = function(albumId) {
       return $http.get('https://picasaweb.google.com/data/feed/api/user/default/albumid/' + albumId, {
         params: {
-          access_token: $rootScope.access_token,
           alt: 'json'
         }
       });
@@ -30,7 +28,6 @@ angular.module('picasaApp.services', []).
     factory.listComments = function(albumId, photoId) {
       return $http.get('https://picasaweb.google.com/data/feed/api/user/default/albumid/' + albumId + '/photoid/' + photoId, {
         params: {
-          access_token: $rootScope.access_token,
           alt: 'json',
           kind: 'comment'
         }
@@ -41,4 +38,9 @@ angular.module('picasaApp.services', []).
   }]).
   factory('commentFactory', ['$resource', function($resource){
     return $resource("/api/comments/:id");
+  }]).
+  factory('albumFactory', ['$resource', function($resource){
+    return $resource('/api/albums/:id', {}, {
+      query: { method:'GET', isArray: false }
+    });
   }]);

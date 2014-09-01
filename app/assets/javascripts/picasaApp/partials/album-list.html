@@ -1,9 +1,9 @@
 <div class="row">
   <div class="col-sm-4 col-md-3" ng-repeat="album in albums">
     <div class="thumbnail">
-      <img ng-src="{{ album.media$group.media$thumbnail[0].url }}">
+      <img ng-src="{{ album.thumbnail }}">
       <div class="caption">
-        <h4><a href="/picasa#/albums/{{ album.gphoto$id.$t }}">{{ album.title.$t }}</a></h4>
+        <h4><a href="/picasa#/albums/{{ album.id }}">{{ album.title }}</a></h4>
       </div>
     </div>
   </div>
