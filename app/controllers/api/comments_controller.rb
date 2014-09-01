@@ -8,11 +8,18 @@ class Api::CommentsController < Api::ApiController
       "<entry xmlns=\"http://www.w3.org/2005/Atom\"><content>#{comment_params[:content]}</content><category scheme=\"http://schemas.google.com/g/2005#kind\" term=\"http://schemas.google.com/photos/2007#comment\"/></entry>",
       { content_type: 'application/atom+xml; charset=UTF-8; type=entry' }
     )
-    head response.code
+    render json: Hash.from_xml(response.body).to_json, status: response.code
   end
 
   private
     def comment_params
       params.require(:comment).permit(:album_id, :photo_id, :content)
+    end
+
+    def current_user
+      if request.headers["HTTP_AUTHORIZATION"]
+        token = request.headers["HTTP_AUTHORIZATION"].split.last
+        @current_user ||= User.find_by(token: token)
+      end
     end
 end

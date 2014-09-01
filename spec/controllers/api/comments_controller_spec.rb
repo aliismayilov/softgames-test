@@ -23,7 +23,8 @@ RSpec.describe Api::CommentsController, :type => :controller do
       end
       before do
         login!
-        allow(RestClient).to receive(:post) { double('response', code: 201) }
+        allow_any_instance_of(Api::CommentsController).to receive(:current_user).and_return(current_user)
+        allow(RestClient).to receive(:post) { double('response', code: 201, body: '<xml></xml>') }
       end
 
       it 'sends a POST request RestClient' do
@@ -31,10 +32,10 @@ RSpec.describe Api::CommentsController, :type => :controller do
         action
       end
 
-      it 'responds created with no content' do
+      it 'responds created with json content' do
         action
         expect(response.code).to eq '201'
-        expect(response.body).to be_blank
+        expect(response.body).to eql '{"xml":null}'
       end
     end
   end
