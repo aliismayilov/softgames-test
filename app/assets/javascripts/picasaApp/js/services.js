@@ -37,7 +37,9 @@ angular.module('picasaApp.services', []).
     return factory;
   }]).
   factory('commentFactory', ['$resource', function($resource){
-    return $resource("/api/comments/:id");
+    return $resource('/api/comments/:id', {}, {
+      query: { method:'GET', isArray: false }
+    });
   }]).
   factory('albumFactory', ['$resource', function($resource){
     return $resource('/api/albums/:id', {}, {

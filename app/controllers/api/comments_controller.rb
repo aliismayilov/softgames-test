@@ -11,6 +11,17 @@ class Api::CommentsController < Api::ApiController
     render json: Hash.from_xml(response.body).to_json, status: response.code
   end
 
+  def index
+    response = RestClient.get(
+      "https://picasaweb.google.com/data/feed/api/user/default/albumid/#{params[:album_id]}/photoid/#{params[:photo_id]}",
+      {
+        params: { alt: 'json', kind: 'comment' },
+        authorization: "Bearer #{current_user.token}"
+      }
+    )
+    render json: response.body, status: response.code
+  end
+
   private
     def comment_params
       params.require(:comment).permit(:album_id, :photo_id, :content)

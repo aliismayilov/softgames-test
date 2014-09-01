@@ -45,9 +45,9 @@ angular.module('picasaApp.controllers', [])
     _initialize();
   }])
   .controller('PhotoDetailCtrl',
-  ['$scope', '$routeParams', 'picasaFactory', 'commentFactory', function($scope, $routeParams, picasaFactory, commentFactory) {
+  ['$scope', '$routeParams', 'commentFactory', function($scope, $routeParams, commentFactory) {
     var _initialize = function() {
-      picasaFactory.listComments($routeParams.albumId, $routeParams.photoId).success(function(data) {
+      commentFactory.query({album_id: $routeParams.albumId, photo_id: $routeParams.photoId}).$promise.then(function(data) {
         $scope.photoUrl = data.feed.media$group.media$content[0].url;
         $scope.comments = _parseComments(data.feed.entry);
         $scope.newComment = {

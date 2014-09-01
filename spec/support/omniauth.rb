@@ -6,6 +6,7 @@ module OmniauthLoginTestHelper
   def login!(*traits)
     session[:user_id] = current_user(*traits).id
     session[:expires_at] = 1.hour.from_now.to_i
+    request.headers["HTTP_AUTHORIZATION"] = "Bearer #{current_user.token}"
   end
 
   def set_env_with_omniauth_info!
