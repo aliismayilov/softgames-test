@@ -24,11 +24,21 @@ angular.module('picasaApp.controllers', [])
     _initialize();
   }])
   .controller('AlbumDetailCtrl',
-  ['$scope', '$routeParams', 'picasaFactory', function($scope, $routeParams, picasaFactory) {
+  ['$scope', '$routeParams', 'albumFactory', function($scope, $routeParams, albumFactory) {
     var _initialize = function() {
-      picasaFactory.showAlbum($routeParams.albumId).success(function(data) {
+      albumFactory.query({id: $routeParams.albumId}).$promise.then(function(data) {
         $scope.albumId = $routeParams.albumId;
-        $scope.photos = data.feed.entry;
+        $scope.photos = _parsePhotos(data.feed.entry);
+      });
+    };
+
+    var _parsePhotos = function(entries) {
+      return entries.map(function(entry) {
+        return {
+          url: entry.content.src,
+          id: entry.gphoto$id.$t,
+          title: entry.title.$t
+        };
       });
     };
 

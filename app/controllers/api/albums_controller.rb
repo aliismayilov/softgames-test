@@ -12,4 +12,15 @@ class Api::AlbumsController < Api::ApiController
     )
     render json: response.body, status: response.code
   end
+
+  def show
+    response = RestClient.get(
+      "https://picasaweb.google.com/data/feed/api/user/default/albumid/#{params[:id]}",
+      {
+        params: { alt: 'json' },
+        authorization: "Bearer #{current_user.token}"
+      }
+    )
+    render json: response.body, status: response.code
+  end
 end

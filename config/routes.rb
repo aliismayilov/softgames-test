@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   namespace :api, defaults: { format: 'json' } do
     resource :user, only: :show
     resources :comments, only: :create
-    resources :albums, only: :index
+    resources :albums, only: [:index, :show]
   end
 
   get '/auth/failure'            => 'sessions#failure',
