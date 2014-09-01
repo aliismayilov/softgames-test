@@ -11,6 +11,10 @@
         <img class="media-object" ng-src="{{ comment.author.thumbnail }}">
       </div>
       <div class="media-body">
+        <button type="button" class="close" ng-click="deleteComment(comment)">
+          <span aria-hidden="true">&times;</span>
+          <span class="sr-only">Close</span>
+        </button>
         <p>{{ comment.content }}</p>
       </div>
     </div>

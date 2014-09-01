@@ -63,7 +63,8 @@ angular.module('picasaApp.controllers', [])
           author: {
             thumbnail: entry.author[0].gphoto$thumbnail.$t,
           },
-          content: entry.content.$t
+          content: entry.content.$t,
+          url: entry.id.$t
         };
       })
     };
@@ -71,15 +72,26 @@ angular.module('picasaApp.controllers', [])
     $scope.sendComment = function(comment) {
       $scope.sending = true;
       commentFactory.save(comment,
-      function(data) {
-        $scope.newComment.content = null;
-        $scope.comments.push(data.entry);
-        $scope.sending = false;
-      },
-      function(error){
-        $scope.errorMessage = 'Error occured: ' + error.data;
-        $scope.sending = false;
-      });
+        function(data) {
+          $scope.newComment.content = null;
+          $scope.comments.push(data.entry);
+          $scope.sending = false;
+        },
+        function(error){
+          $scope.errorMessage = 'Error occured: ' + error.data;
+          $scope.sending = false;
+        });
+    };
+
+    $scope.deleteComment = function(comment) {
+      commentFactory.delete({ url: comment.url },
+        function(data) {
+          var index = $scope.comments.indexOf(comment);
+          $scope.comments.splice(index, 1);
+        },
+        function(error){
+          $scope.errorMessage = 'Error occured: ' + error.data;
+        });
     };
 
     _initialize();
