@@ -5,6 +5,7 @@ module OmniauthLoginTestHelper
 
   def login!(*traits)
     session[:user_id] = current_user(*traits).id
+    session[:expires_at] = 1.hour.from_now.to_i
   end
 
   def set_env_with_omniauth_info!

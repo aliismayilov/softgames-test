@@ -41,6 +41,7 @@ describe ApplicationController do
     context 'user is signed in' do
       before do
         session[:user_id] = user.id
+        session[:expires_at] = 1.hour.from_now.to_i
       end
 
       it 'ignores redirection and proceeds' do
@@ -55,6 +56,26 @@ describe ApplicationController do
         request.define_singleton_method :fullpath do
           '/potato'
         end
+
+        expect(controller)
+          .to receive(:redirect_to)
+          .with(login_url(provider: 'google_oauth2', origin: '/potato'),
+                notice: 'You need to sign in...')
+          .and_return(redirect)
+
+        expect(controller.send(:authenticate!)).to eql redirect
+      end
+    end
+
+    context 'omniauth token is expired' do
+      before do
+        session[:user_id] = user.id
+        session[:expires_at] = 1.hour.ago.to_i
+      end
+
+      it 'redirects to login' do
+        redirect = double('redirect')
+        request.define_singleton_method(:fullpath) { '/potato' }
 
         expect(controller)
           .to receive(:redirect_to)

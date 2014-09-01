@@ -22,8 +22,12 @@ class ApplicationController < ActionController::Base
       current_user.present?
     end
 
+    def token_is_not_expired?
+      Time.now < Time.at(session[:expires_at]) if session[:expires_at]
+    end
+
     def authenticate!
-      return if user_signed_in?
+      return if user_signed_in? and token_is_not_expired?
 
       origin = request.post? ? root_url : request.fullpath
 
