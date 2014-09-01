@@ -1,4 +1,4 @@
-class UsersController < ApplicationController
+class Api::UsersController < Api::ApiController
   respond_to :json
   before_filter :authenticate!
 

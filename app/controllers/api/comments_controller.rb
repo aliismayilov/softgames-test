@@ -1,4 +1,4 @@
-class CommentsController < ApplicationController
+class Api::CommentsController < Api::ApiController
   respond_to :json
   before_filter :authenticate!
 

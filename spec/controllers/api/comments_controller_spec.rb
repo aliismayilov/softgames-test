@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe CommentsController, :type => :controller do
+RSpec.describe Api::CommentsController, :type => :controller do
   before { request.accept = Mime::JSON }
 
   describe "POST create" do
