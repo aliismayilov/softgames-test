@@ -1,0 +1,7 @@
+- unless current_page? root_path
+  nav.navbar.navbar-default role="navigation"
+    = link_to 'Stinky Dungeon Fusion', root_path, class: 'navbar-brand'
+    .nav.navbar-nav.navbar-right
+      - if current_user
+        = link_to 'Sign out', logout_path(provider: 'google_oauth2'), class: 'btn btn-danger', role: 'button'
+        = image_tag current_user.image, class: 'img-thumbnail'
