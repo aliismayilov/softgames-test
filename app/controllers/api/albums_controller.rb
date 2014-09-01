@@ -3,25 +3,37 @@ class Api::AlbumsController < Api::ApiController
   before_filter :authenticate!
 
   def index
-    response = RestClient.get(
+    RestClient.get(
       'https://picasaweb.google.com/data/feed/api/user/default',
       {
         params: { alt: 'json' },
         authorization: "Bearer #{current_user.token}"
       }
-    )
-    render json: response.body, status: response.code
+    ) do |response|
+      case response.code.to_s
+      when /^2/
+        render json: response.body, status: response.code
+      else
+        render text: response.body, status: response.code
+      end
+    end
   end
 
   def show
-    response = RestClient.get(
+    RestClient.get(
       "https://picasaweb.google.com/data/feed/api/user/default/albumid/#{params[:id]}",
       {
         params: { alt: 'json' },
         authorization: "Bearer #{current_user.token}"
       }
-    )
-    render json: response.body, status: response.code
+    ) do |response|
+      case response.code.to_s
+      when /^2/
+        render json: response.body, status: response.code
+      else
+        render text: response.body, status: response.code
+      end
+    end
   end
 
   private

@@ -15,6 +15,7 @@
       </div>
     </div>
     <textarea class="form-control" rows="2" ng-model="newComment.content" ng-disabled="sending"></textarea>
+    <span class="help-block" ng-show="errorMessage">{{ errorMessage }}</span>
     <button ng-click="sendComment(newComment)" class="btn btn-primary" ng-class="{disabled: sending}">Send comment</button>
   </div>
 </div>

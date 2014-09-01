@@ -70,9 +70,14 @@ angular.module('picasaApp.controllers', [])
 
     $scope.sendComment = function(comment) {
       $scope.sending = true;
-      commentFactory.save(comment, function(data) {
+      commentFactory.save(comment,
+      function(data) {
         $scope.newComment.content = null;
         $scope.comments.push(data.entry);
+        $scope.sending = false;
+      },
+      function(error){
+        $scope.errorMessage = 'Error occured: ' + error.data;
         $scope.sending = false;
       });
     };
