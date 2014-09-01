@@ -33,7 +33,7 @@ angular.module('picasaApp.controllers', [])
     };
 
     var _parsePhotos = function(entries) {
-      return entries.map(function(entry) {
+      return entries.slice(0, 3).map(function(entry) {
         return {
           url: entry.content.src,
           id: entry.gphoto$id.$t,
