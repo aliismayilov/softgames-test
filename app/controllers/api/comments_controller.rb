@@ -4,9 +4,12 @@ class Api::CommentsController < Api::ApiController
 
   def create
     response = RestClient.post(
-      "https://picasaweb.google.com/data/feed/api/user/default/albumid/#{comment_params[:album_id]}/photoid/#{comment_params[:photo_id]}?access_token=#{current_user.token}",
+      "https://picasaweb.google.com/data/feed/api/user/default/albumid/#{comment_params[:album_id]}/photoid/#{comment_params[:photo_id]}",
       "<entry xmlns=\"http://www.w3.org/2005/Atom\"><content>#{comment_params[:content]}</content><category scheme=\"http://schemas.google.com/g/2005#kind\" term=\"http://schemas.google.com/photos/2007#comment\"/></entry>",
-      { content_type: 'application/atom+xml; charset=UTF-8; type=entry' }
+      {
+        content_type: 'application/atom+xml; charset=UTF-8; type=entry',
+        authorization: "Bearer #{current_user.token}"
+      }
     )
     render json: Hash.from_xml(response.body).to_json, status: response.code
   end
@@ -28,8 +31,7 @@ class Api::CommentsController < Api::ApiController
     end
 
     def current_user
-      if request.headers["HTTP_AUTHORIZATION"]
-        token = request.headers["HTTP_AUTHORIZATION"].split.last
+      authenticate_or_request_with_http_token do |token, options|
         @current_user ||= User.find_by(token: token)
       end
     end

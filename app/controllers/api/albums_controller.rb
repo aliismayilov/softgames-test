@@ -23,4 +23,11 @@ class Api::AlbumsController < Api::ApiController
     )
     render json: response.body, status: response.code
   end
+
+  private
+    def current_user
+      authenticate_or_request_with_http_token do |token, options|
+        @current_user ||= User.find_by(token: token)
+      end
+    end
 end

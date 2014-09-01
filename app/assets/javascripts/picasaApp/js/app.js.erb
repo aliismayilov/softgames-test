@@ -29,7 +29,6 @@ config(['$routeProvider', '$httpProvider', function($routeProvider, $httpProvide
 }]).
 run(['$rootScope', '$http', function($rootScope, $http){
   $http.get('/api/user').success(function(user) {
-    $rootScope.access_token = user.token;
-    $http.defaults.headers.common.Authorization = 'Bearer ' + user.token;
+    $http.defaults.headers.common.Authorization = 'Token token=' + user.token;
   });
 }]);
