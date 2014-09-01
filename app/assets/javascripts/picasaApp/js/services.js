@@ -15,4 +15,17 @@ angular.module('picasaApp.services', []).
     return $resource('/api/albums/:id', {}, {
       query: { method:'GET', isArray: false }
     });
-  }]);
+  }]).
+  factory('$loader', function(){
+    var factory = {};
+
+    factory.start = function() {
+      $('#loader').show();
+    };
+
+    factory.stop = function() {
+      $('#loader').hide();
+    };
+
+    return factory;
+  });

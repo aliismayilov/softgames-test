@@ -18,8 +18,8 @@
         <p>{{ comment.content }}</p>
       </div>
     </div>
-    <textarea class="form-control" rows="2" ng-model="newComment.content" ng-disabled="sending"></textarea>
+    <textarea class="form-control" rows="2" ng-model="newComment.content"></textarea>
     <span class="help-block" ng-show="errorMessage">{{ errorMessage }}</span>
-    <button ng-click="sendComment(newComment)" class="btn btn-primary" ng-class="{disabled: sending}">Send comment</button>
+    <button ng-click="sendComment(newComment)" class="btn btn-primary">Send comment</button>
   </div>
 </div>
