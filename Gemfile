@@ -17,7 +17,8 @@ gem 'rest_client'
 
 # rails-assets
 gem 'rails-assets-angular', '~> 1.2.23'
-gem 'rails-assets-angular-route', '~> 1.2.9'
+gem 'rails-assets-angular-route', '~> 1.2.23'
+gem 'rails-assets-angular-resource', '~> 1.2.23'
 
 group :development, :test do
   gem 'rspec-rails', '~> 3.0.0'
@@ -25,4 +26,5 @@ group :development, :test do
   gem 'spring'
   gem 'dotenv-rails'
   gem 'quiet_assets'
+  gem 'pry-rails'
 end

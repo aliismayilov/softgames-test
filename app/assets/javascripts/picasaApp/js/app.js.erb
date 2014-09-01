@@ -3,6 +3,7 @@
 // Declare app level module which depends on filters, and services
 angular.module('picasaApp', [
   'ngRoute',
+  'ngResource',
   'picasaApp.services',
   'picasaApp.controllers'
 ]).
@@ -27,7 +28,8 @@ config(['$routeProvider', '$httpProvider', function($routeProvider, $httpProvide
   $httpProvider.defaults.useXDomain = true;
 }]).
 run(['$rootScope', '$http', function($rootScope, $http){
-  $http.get('/user').success(function(user) {
+  $http.get('/api/user').success(function(user) {
     $rootScope.access_token = user.token;
+    $http.defaults.headers.post.Authorization = 'Bearer ' + user.token;
   });
 }]);

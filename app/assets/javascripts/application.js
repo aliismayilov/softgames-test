@@ -14,5 +14,6 @@
 //= require bootstrap-sprockets
 //= require angular
 //= require angular-route
+//= require angular-resource
 //= require jquery_ujs
 //= require_tree .

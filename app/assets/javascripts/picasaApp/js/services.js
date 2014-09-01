@@ -38,4 +38,7 @@ angular.module('picasaApp.services', []).
     };
 
     return factory;
+  }]).
+  factory('commentFactory', ['$resource', function($resource){
+    return $resource("/api/comments/:id");
   }]);
