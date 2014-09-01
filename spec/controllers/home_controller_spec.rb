@@ -12,9 +12,7 @@ RSpec.describe HomeController, :type => :controller do
   describe "GET picasa" do
     let(:action) { get :picasa }
 
-    it_behaves_like 'action that requires authentication' do
-      before { action }
-    end
+    it_behaves_like 'action that requires authentication'
 
     context 'logged in' do
       before { login! }

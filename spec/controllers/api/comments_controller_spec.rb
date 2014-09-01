@@ -8,7 +8,6 @@ RSpec.describe Api::CommentsController, :type => :controller do
 
     it_behaves_like 'action that requires authentication' do
       let(:params) { { } }
-      before { action }
     end
 
     context 'logged in' do
@@ -43,9 +42,7 @@ RSpec.describe Api::CommentsController, :type => :controller do
   describe "GET index" do
     let(:action) { get :index }
 
-    it_behaves_like 'action that requires authentication' do
-      before { action }
-    end
+    it_behaves_like 'action that requires authentication'
 
     context 'logged in' do
       before do
