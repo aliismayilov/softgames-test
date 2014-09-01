@@ -5,20 +5,20 @@ class Api::ApiController < ApplicationController
   before_filter :authenticate!
 
   protected
-    def picasa_request(path='', method=:get, data=nil)
+    def picasa_request(url: nil, path: nil, method: :get, data: nil)
       base_url = 'https://picasaweb.google.com/data/feed/api/user/default'
-      url = "#{base_url}/#{path}"
-      if method == :get
-        response = RestClient.get(
-          url,
-          {
-            params: { alt: 'json' },
-            authorization: "Bearer #{current_user.oauth_token}"
-          }
-        )
-        render json: response.body, status: response.code
-      elsif method == :post
-        begin
+      url = url || "#{base_url}/#{path}"
+      begin
+        if method == :get || method == :delete
+          response = RestClient.send(method,
+            url,
+            {
+              params: { alt: 'json' },
+              authorization: "Bearer #{current_user.oauth_token}"
+            }
+          )
+          render json: response.body, status: response.code
+        elsif method == :post
           response = RestClient.post(
             url,
             data,
@@ -28,11 +28,11 @@ class Api::ApiController < ApplicationController
             }
           )
           render json: Hash.from_xml(response.body).to_json, status: response.code
-        rescue => e
-          render text: e.response.body, status: e.response.code
+        else
+          head :bad_request
         end
-      else
-        head :bad_request
+      rescue => e
+        render text: e.response.body, status: e.response.code
       end
     end
 end

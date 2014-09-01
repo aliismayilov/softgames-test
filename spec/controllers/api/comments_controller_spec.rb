@@ -62,4 +62,29 @@ RSpec.describe Api::CommentsController, :type => :controller do
       end
     end
   end
+
+  describe "DELETE destroy" do
+    let(:action) { delete :destroy, id: 1 }
+
+    it_behaves_like 'action that requires authentication'
+
+    context 'logged in' do
+      before do
+        login!
+        allow_any_instance_of(Api::CommentsController).to receive(:current_user).and_return(current_user)
+        allow(RestClient).to receive(:delete) { double('response', code: 204, body: '') }
+      end
+
+      it 'sends a POST request RestClient' do
+        expect(RestClient).to receive(:delete)
+        action
+      end
+
+      it 'responds created with json content' do
+        action
+        expect(response.code).to eq '204'
+        expect(response.body).to be_blank
+      end
+    end
+  end
 end

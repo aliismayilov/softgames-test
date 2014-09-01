@@ -6,7 +6,7 @@ class Api::AlbumsController < Api::ApiController
   end
 
   def show
-    picasa_request "albumid/#{params[:id]}"
+    picasa_request(path: "albumid/#{params[:id]}")
   end
 
   private
