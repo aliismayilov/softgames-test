@@ -7,7 +7,7 @@ FactoryGirl.define do
     name "MyString"
     sequence(:email) { |n| "user-#{n}@email.com" }
     image "MyString"
-    token "MyString"
+    sequence(:oauth_token) { |n| "oauthtoken#{n}" }
     token_expires_at 1.hour.from_now
   end
 end

@@ -1,5 +1,6 @@
 shared_examples_for 'action that requires authentication' do
   context 'not logged in' do
+    before { action }
     it { expect(flash[:notice]).to eql("You need to sign in...") }
     it {
       origin = request.post? ? root_url : request.fullpath

@@ -1,6 +1,5 @@
 class Api::CommentsController < Api::ApiController
   respond_to :json
-  before_filter :authenticate!
 
   def create
     data = "<entry xmlns=\"http://www.w3.org/2005/Atom\"><content>#{comment_params[:content]}</content><category scheme=\"http://schemas.google.com/g/2005#kind\" term=\"http://schemas.google.com/photos/2007#comment\"/></entry>"
@@ -17,8 +16,8 @@ class Api::CommentsController < Api::ApiController
     end
 
     def current_user
-      authenticate_or_request_with_http_token do |token, options|
-        @current_user ||= User.find_by(token: token)
+      authenticate_with_http_token do |token, options|
+        @current_user ||= User.find_by(app_token: token)
       end
     end
 end

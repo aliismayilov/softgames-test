@@ -1,6 +1,5 @@
 class Api::AlbumsController < Api::ApiController
   respond_to :json
-  before_filter :authenticate!
 
   def index
     picasa_request
@@ -12,8 +11,8 @@ class Api::AlbumsController < Api::ApiController
 
   private
     def current_user
-      authenticate_or_request_with_http_token do |token, options|
-        @current_user ||= User.find_by(token: token)
+      authenticate_with_http_token do |token, options|
+        @current_user ||= User.find_by(app_token: token)
       end
     end
 end
