@@ -49,12 +49,12 @@ angular.module('picasaApp.controllers', [])
     var _initialize = function() {
       commentFactory.query({album_id: $routeParams.albumId, photo_id: $routeParams.photoId}).$promise.then(function(data) {
         $scope.photoUrl = data.feed.media$group.media$content[0].url;
-        $scope.comments = _parseComments(data.feed.entry);
-        $scope.newComment = {
-          album_id: $routeParams.albumId,
-          photo_id: $routeParams.photoId
-        };
+        $scope.comments = _parseComments(data.feed.entry || []);
       });
+      $scope.newComment = {
+        album_id: $routeParams.albumId,
+        photo_id: $routeParams.photoId
+      };
     };
 
     var _parseComments = function(entries) {
@@ -69,9 +69,11 @@ angular.module('picasaApp.controllers', [])
     };
 
     $scope.sendComment = function(comment) {
+      $scope.sending = true;
       commentFactory.save(comment, function(data) {
         $scope.newComment.content = null;
         $scope.comments.push(data.entry);
+        $scope.sending = false;
       });
     };
 

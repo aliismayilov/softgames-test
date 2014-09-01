@@ -14,7 +14,7 @@
         <p>{{ comment.content }}</p>
       </div>
     </div>
-    <textarea class="form-control" rows="2" ng-model="newComment.content"></textarea>
-    <button ng-click="sendComment(newComment)" class="btn btn-primary" ng-class="{disabled: !newComment.content}">Send comment</button>
+    <textarea class="form-control" rows="2" ng-model="newComment.content" ng-disabled="sending"></textarea>
+    <button ng-click="sendComment(newComment)" class="btn btn-primary" ng-class="{disabled: sending}">Send comment</button>
   </div>
 </div>
