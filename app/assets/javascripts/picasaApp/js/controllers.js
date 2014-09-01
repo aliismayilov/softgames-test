@@ -29,7 +29,7 @@ angular.module('picasaApp.controllers', [])
     var _initialize = function() {
       picasaFactory.listComments($routeParams.albumId, $routeParams.photoId).success(function(data) {
         $scope.photoUrl = data.feed.media$group.media$content[0].url;
-        $scope.comments = data.feed.entry;
+        $scope.comments = _parseComments(data.feed.entry);
         $scope.newComment = {
           album_id: $routeParams.albumId,
           photo_id: $routeParams.photoId
@@ -37,9 +37,21 @@ angular.module('picasaApp.controllers', [])
       });
     };
 
+    var _parseComments = function(entries) {
+      return entries.map(function(entry) {
+        return {
+          author: {
+            thumbnail: entry.author[0].gphoto$thumbnail.$t,
+          },
+          content: entry.content.$t
+        };
+      })
+    };
+
     $scope.sendComment = function(comment) {
-      commentFactory.save(comment).success(function(data) {
-        $scope.comments.push(data);
+      commentFactory.save(comment, function(data) {
+        $scope.newComment.content = null;
+        $scope.comments.push(data.entry);
       });
     };
 

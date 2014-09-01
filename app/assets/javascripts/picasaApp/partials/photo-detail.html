@@ -8,10 +8,10 @@
     </div>
     <div class="media" ng-repeat="comment in comments">
       <div class="pull-left">
-        <img class="media-object" ng-src="{{ comment.author[0].gphoto$thumbnail.$t }}">
+        <img class="media-object" ng-src="{{ comment.author.thumbnail }}">
       </div>
       <div class="media-body">
-        <p>{{ comment.content.$t }}</p>
+        <p>{{ comment.content }}</p>
       </div>
     </div>
     <textarea class="form-control" rows="2" ng-model="newComment.content"></textarea>
