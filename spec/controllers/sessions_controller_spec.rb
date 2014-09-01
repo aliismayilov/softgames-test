@@ -24,6 +24,10 @@ describe SessionsController do
           it 'sets user_id on session' do
             expect(session[:user_id]).to eql(User.find_by(uid: auth['uid']).id)
           end
+
+          it 'sets UNIX time on session' do
+            expect(session[:expires_at]).to eql 1354920555
+          end
         end
       end
 
@@ -37,6 +41,10 @@ describe SessionsController do
 
           it 'sets user id in session' do
             expect(session[:user_id]).to eql(user.id)
+          end
+
+          it 'sets UNIX time on session' do
+            expect(session[:expires_at]).to eql 1354920555
           end
         end
       end
@@ -72,12 +80,14 @@ describe SessionsController do
       end
     end
 
-    it 'should nuliffy user_id on sessions' do
+    it 'should nuliffy user_id and expires_at on sessions' do
       session[:user_id] = '1'
+      session[:expires_at] = '1354920555'
 
       get :destroy
 
       expect(session[:user_id]).to be_nil
+      expect(session[:expires_at]).to be_nil
     end
 
     it 'should redirect to root_path' do
