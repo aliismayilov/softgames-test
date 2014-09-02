@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 source 'https://rails-assets.org'
-
+ruby '2.1.2'
 
 gem 'rails', '4.1.5'
 gem 'pg'
@@ -19,6 +19,10 @@ gem 'rest_client'
 gem 'rails-assets-angular', '~> 1.2.23'
 gem 'rails-assets-angular-route', '~> 1.2.23'
 gem 'rails-assets-angular-resource', '~> 1.2.23'
+
+group :production do
+  gem 'rails_12factor'
+end
 
 group :development, :test do
   gem 'rspec-rails', '~> 3.0.0'
